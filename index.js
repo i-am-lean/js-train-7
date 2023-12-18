@@ -119,7 +119,10 @@ console.log(useSymbolDescription()); //Виведе mySymbol
 // Завдання 9: Використання Symbol.iterator
 
 // Об'єкт "myObject" представляє значення   from: 1, to: 7, які можна перебрати
-let rangeObject = {   
+let rangeObject = {  
+  from: 1,
+  to: 7,
+
   [Symbol.iterator]: function() { // Використовуємо Symbol.iterator для створення ітератора всередині об'єкта "myObject"
     this.current = this.from;// this.current присвоюємо this.from
     return this;// Повертаємо this
@@ -130,9 +133,10 @@ let rangeObject = {
         value: this.current++, // та не забуваємо збільшити індекс за допомогою інкремент, і "done" - false, означаючи, що ітерація ще не закінчена
         done: false
       };
-    }
+    } else {
     return {done: true};// Якщо індекс вийшов за межі масиву ключів, повертаємо об'єкт з властивістю "done" - true, означаючи, що ітерація закінчена
-  } 
+    } 
+  },
 };
 
 // Функція "useSymbolIterator" використовує ітератор для отримання значень об'єкта
@@ -140,9 +144,9 @@ function useSymbolIterator(obj) {
   // Проходимо крізь елементи об'єкта obj, використовуючи цикл "for...of"
   // Додаємо кожне значення до масиву "result"
   // Повертаємо масив зі значеннями
-  const result = [];
+  let result = [];
   for (const value of obj) {
-    result.push(value);
+    result = [...result, value];
   }
   return result;
 }
